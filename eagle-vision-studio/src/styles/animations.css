@@ -1,0 +1,168 @@
+/* ============================================================
+   EAGLE VISION STUDIO — ANIMATIONS STYLESHEET
+   ============================================================
+   Contents:
+   1. Keyframe definitions
+   2. Scroll-reveal classes (used by IntersectionObserver in JS)
+   3. Hero entrance animations (CSS animation, delay-based)
+   4. Stagger delays for grid children
+   ============================================================ */
+
+
+/* ============================================================
+   1. KEYFRAME DEFINITIONS
+   ============================================================ */
+
+/* Basic fade */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+/* Slide up & fade in */
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(36px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Slide from left */
+@keyframes slideFromLeft {
+  from { opacity: 0; transform: translateX(-36px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+/* Slide from right */
+@keyframes slideFromRight {
+  from { opacity: 0; transform: translateX(36px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+/* Animated film grain shift */
+@keyframes grainShift {
+  0%   { transform: translate(0, 0); }
+  10%  { transform: translate(-2%, -3%); }
+  20%  { transform: translate(3%, 1%); }
+  30%  { transform: translate(-1%, 4%); }
+  40%  { transform: translate(2%, -2%); }
+  50%  { transform: translate(-3%, 2%); }
+  60%  { transform: translate(1%, -1%); }
+  70%  { transform: translate(-2%, 3%); }
+  80%  { transform: translate(3%, -3%); }
+  90%  { transform: translate(-1%, 1%); }
+  100% { transform: translate(0, 0); }
+}
+
+/* Gold pulse glow */
+@keyframes goldGlow {
+  0%, 100% { box-shadow: 0 0 20px rgba(201, 168, 76, 0.15); }
+  50%       { box-shadow: 0 0 42px rgba(201, 168, 76, 0.35); }
+}
+
+/* Floating gentle bob */
+@keyframes floatBob {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(-8px); }
+}
+
+
+/* ============================================================
+   2. SCROLL-REVEAL CLASSES
+   ============================================================
+   Elements start invisible and transform to visible when
+   the IntersectionObserver in main.js adds `.is-visible`.
+   ============================================================ */
+
+/* Default: slide up */
+.reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+
+/* Slide in from left */
+.reveal-left {
+  opacity: 0;
+  transform: translateX(-30px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+
+/* Slide in from right */
+.reveal-right {
+  opacity: 0;
+  transform: translateX(30px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+
+/* Visible state — added by JS */
+.reveal.is-visible,
+.reveal-left.is-visible,
+.reveal-right.is-visible {
+  opacity: 1;
+  transform: translate(0, 0);
+}
+
+
+/* ============================================================
+   3. HERO ENTRANCE ANIMATIONS
+   ============================================================
+   These play once automatically on page load (after loader).
+   Uses `animation-fill-mode: both` to hold final state.
+   ============================================================ */
+
+.hero__eyebrow {
+  animation: fadeIn 0.8s ease 1.25s both;
+}
+
+.hero__title {
+  animation: slideUp 1s ease 1.45s both;
+}
+
+.hero__subtitle {
+  animation: slideUp 1s ease 1.65s both;
+}
+
+.hero__actions {
+  animation: slideUp 1s ease 1.85s both;
+}
+
+/* Scroll hint: fades in then infinitely bounces */
+.hero__scroll-hint {
+  animation: fadeIn 1s ease 2.25s both;
+}
+
+.scroll-hint__line {
+  /* The bounce is defined in main.css, this just adds a delay */
+  animation-delay: 2.25s;
+}
+
+
+/* ============================================================
+   4. STAGGER DELAYS FOR GRID CHILDREN
+   ============================================================
+   Apply `.stagger` to a parent container to progressively
+   delay the reveal animation of its `.reveal` children.
+   ============================================================ */
+
+.stagger .reveal:nth-child(1)  { transition-delay: 0ms;   }
+.stagger .reveal:nth-child(2)  { transition-delay: 90ms;  }
+.stagger .reveal:nth-child(3)  { transition-delay: 180ms; }
+.stagger .reveal:nth-child(4)  { transition-delay: 270ms; }
+.stagger .reveal:nth-child(5)  { transition-delay: 360ms; }
+.stagger .reveal:nth-child(6)  { transition-delay: 450ms; }
+.stagger .reveal:nth-child(7)  { transition-delay: 540ms; }
+.stagger .reveal:nth-child(8)  { transition-delay: 630ms; }
+
+
+/* ============================================================
+   5. MISC HOVER / UTILITY ANIMATIONS
+   ============================================================ */
+
+/* Gold shimmer on important elements */
+.gold-shimmer {
+  animation: goldGlow 3s ease-in-out infinite;
+}
+
+/* Floating animation for decorative elements */
+.float {
+  animation: floatBob 4s ease-in-out infinite;
+}
